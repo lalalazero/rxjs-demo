@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from "react";
-import { fromEvent } from "rxjs";
-import { map, filter } from "rxjs/operators";
+import { fromEvent, Subject } from "rxjs";
+import { map, filter, switchMap, distinct, debounceTime } from "rxjs/operators";
+import { mockHttpRequest } from './lib'
+
+
 
 export default function () {
   const [listItem, setListItem] = useState([]);
   const createTodoItem = (value) => {
-    return {
-      id: listItem.length + 1,
-      text: value,
-      done: false,
-    };
+    // return {
+    //   id: listItem.length + 1,
+    //   text: value,
+    //   done: false,
+    // };
+    return value
   };
   useEffect(() => {
     const $input = document.querySelector("#x");
     const observableKeydown = fromEvent($input, "keydown");
     const $button = document.querySelector("button");
     const observableClick = fromEvent($button, "click");
+    const clearInputSubject$ = new Subject()
 
     const addTodo = (value) => {
       console.log("value ", value);
@@ -26,17 +31,23 @@ export default function () {
 
     const keydownSubscription = observableKeydown
       .pipe(
+        debounceTime(300),
         filter((x) => x.keyCode === 13),
         map((x) => x.target.value),
         filter(y => y.trim() !== ''),
+        distinct(null, clearInputSubject$),
+        switchMap(mockHttpRequest),
         map(createTodoItem)
       )
       .subscribe(addTodo);
 
     const clickSubscription = observableClick
       .pipe(
+        debounceTime(300),
         map((x) => $input.value),
         filter((x) => x.trim() !== ""),
+        distinct(null, clearInputSubject$),
+        switchMap(mockHttpRequest),
         map(createTodoItem)
       )
       .subscribe(addTodo);

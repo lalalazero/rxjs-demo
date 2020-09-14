@@ -16,8 +16,7 @@ function Demo(props) {
   const { actions: { addCount, minusCount, addCountAsync }} = props
   return (
     <div>
-      <h3>auto complete demo with redux.js</h3>
-      <input type="text"></input>
+      <h3>counter demo with redux.js</h3>
       <p>count: {counter}</p>
       <p><button onClick={() => addCount(1)}>+1</button><button onClick={() => minusCount(1)}>-1</button></p>
       <p><button onClick={() => addCountAsync(1)}>+1 async</button></p>

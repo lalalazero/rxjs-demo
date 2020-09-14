@@ -22,7 +22,7 @@ export const mockHttpRequest = value => {
         status = 'done'
         observer.next(result)
         observer.complete()
-      }, random(1000, 5000))
+      }, random(100, 200))
       return () => {
           clearTimeout(timer)
           if(status === 'pending'){

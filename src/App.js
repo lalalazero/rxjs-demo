@@ -1,14 +1,15 @@
 import React from "react";
 import Todo from './Todo'
-import AutoCompleteDemo from './AutoCompleteDemo'
+import CounterDemo from './CounterDemo'
 import { Provider } from 'react-redux'
 import store from './store/index'
+import RxjsDemo from './RxjsDemo'
 
 // import runBasic from './rxjsDemo/rundemo'
 // runBasic()
 
 const TodoDemoWithPlainRxjs = () => <Todo />
-const AutoCompleteDemoWithRedux = () => <AutoCompleteDemo />
+const CounterDemoWithRedux = () => <CounterDemo />
 
 function App() {
   
@@ -17,7 +18,8 @@ function App() {
       <div>
       <h2>app</h2>
       <TodoDemoWithPlainRxjs />
-      <AutoCompleteDemoWithRedux />
+      <CounterDemoWithRedux />
+      <RxjsDemo />
     </div>
     </Provider>
     

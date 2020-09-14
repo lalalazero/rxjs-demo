@@ -1,5 +1,5 @@
 import { of, Observable } from 'rxjs'
-import { map, first } from 'rxjs/operators'
+import { map, first, switchMap } from 'rxjs/operators'
 
 
 export const demo1 =() => {
@@ -55,5 +55,11 @@ export const demo3 = () => {
     }
 
     discardEven()(of(1,2,3,4,5,6,7,8)).subscribe(x => console.log(x))
+}
+
+export const demo4 = () => {
+    console.log('operator ---demo4: switchMap ---')
+    const switched = of(1,2,3).pipe(switchMap(x => of(x, x ** 2, x ** 3)))
+    switched.subscribe(x => console.log(x))
 }
 

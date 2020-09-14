@@ -47,7 +47,8 @@ export default function () {
     }
   }, [listItem]);
 
-  const onRemove = (select) => {
+  const onRemove = (event, select) => {
+    event.stopPropagation()
     const newListItem = listItem.filter((item) => item.id !== select.id);
     setListItem(newListItem);
   };
@@ -70,7 +71,7 @@ export default function () {
               </span>
               {item.text}
               <span
-                onClick={(event) => onRemove(item)}
+                onClick={(event) => onRemove(event, item)}
                 style={{ float: "right" }}
               >
                 x

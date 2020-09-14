@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { fromEvent } from "rxjs";
 import { map, filter } from "rxjs/operators";
 
-
 export default function () {
   const [listItem, setListItem] = useState([]);
   const createTodoItem = (value) => {
@@ -29,6 +28,7 @@ export default function () {
       .pipe(
         filter((x) => x.keyCode === 13),
         map((x) => x.target.value),
+        filter(y => y.trim() !== ''),
         map(createTodoItem)
       )
       .subscribe(addTodo);
@@ -36,25 +36,27 @@ export default function () {
     const clickSubscription = observableClick
       .pipe(
         map((x) => $input.value),
+        filter((x) => x.trim() !== ""),
         map(createTodoItem)
       )
       .subscribe(addTodo);
 
-
     return () => {
-        keydownSubscription.unsubscribe()
-        clickSubscription.unsubscribe()
-    }
+      keydownSubscription.unsubscribe();
+      clickSubscription.unsubscribe();
+    };
   }, [listItem]);
 
   const onRemove = (event, select) => {
-    event.stopPropagation()
+    event.stopPropagation();
     const newListItem = listItem.filter((item) => item.id !== select.id);
     setListItem(newListItem);
   };
 
   const toggle = (select) => {
-    const newItemList = listItem.map((item) => item.id === select.id ? {...item, done: !select.done} : item);
+    const newItemList = listItem.map((item) =>
+      item.id === select.id ? { ...item, done: !select.done } : item
+    );
     setListItem([...newItemList]);
   };
 

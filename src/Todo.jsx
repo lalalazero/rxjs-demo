@@ -73,6 +73,7 @@ export default function () {
 
   return (
     <div style={{ display: "inline-block" }}>
+      <h3>todo demo with plain rxjs</h3>
       <input type="text" id="x"></input>
       <button>add</button>
       <ul>

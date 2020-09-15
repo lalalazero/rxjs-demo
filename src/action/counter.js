@@ -1,6 +1,6 @@
 import { counterService } from "../service";
 import { ofType } from "redux-observable";
-import { filter, map, delay } from "rxjs/operators";
+import { filter, map, delay, withLatestFrom } from "rxjs/operators";
 
 export const ADD_COUNT = "ADD_COUNT";
 export const MINUS_COUNT = "MINUS_COUNT";
@@ -46,3 +46,11 @@ export const incrementIfOddEpic = (action$, state$) => {
     map(() => increment())
   );
 };
+
+// 等同写法， 用 withLatestFrom 获取最新的 state
+const reactiveIncrementIfOddEpic = (action$, state$) => action$.pipe(
+    ofType(INCREMENT_IF_ODD),
+    withLatestFrom(state$),
+    filter(([, state]) => state.counter % 2 === 1),
+    map(() => increment())
+)

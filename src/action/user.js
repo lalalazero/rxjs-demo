@@ -18,10 +18,6 @@ export const fetchUserEpic = (action$) => {
   console.log("fetch user epic..", action$);
   return action$.pipe(
     ofType(FETCH_USER),
-    every((action) => {
-      console.log("receive fetch user action - ", action);
-      return action;
-    }),
     mergeMap((action) => {
       return ajax
         .getJSON(`http://api.github.com/users/${action.payload}`)

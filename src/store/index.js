@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk";
 import { createEpicMiddleware } from "redux-observable";
 import { combineEpics } from "redux-observable";
-import { pingEpic, fetchUserEpic } from "../action";
+import { pingEpic, fetchUserEpic, incrementIfOddEpic } from "../action";
 import { user, counter, ping } from "./reducer";
 
 const epicMiddleware = createEpicMiddleware();
@@ -15,7 +15,7 @@ const rootReducer = combineReducers({
   ping,
 });
 
-export const rootEpic = combineEpics(pingEpic, fetchUserEpic);
+export const rootEpic = combineEpics(pingEpic, fetchUserEpic, incrementIfOddEpic);
 
 
 

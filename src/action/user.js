@@ -1,6 +1,6 @@
 import { ajax } from "rxjs/ajax";
 import { ofType } from "redux-observable";
-import { mergeMap, map, every } from "rxjs/operators";
+import { mergeMap, map } from "rxjs/operators";
 
 export const FETCH_USER = "FETCH_USER";
 export const FETCH_USER_FULLFILLED = "FETCH_USER_FULLFILLED";

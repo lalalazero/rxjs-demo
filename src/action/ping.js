@@ -1,5 +1,5 @@
 
-import { mapTo, every, delay } from 'rxjs/operators'
+import { mapTo,  delay } from 'rxjs/operators'
 import { ofType } from 'redux-observable'
 
 export const PING = 'PING'
